@@ -13,4 +13,16 @@ before_install:
 # Contains all of different commants that will be executed
 # Travis CI cares only about status code returned from script command
 script:
-  - docker run -e CI=true gercios/test-react-docker-aws npm run test
+  - docker run -e CI=true gercios/test-react-docker-aws npm run test --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "test-react-docker-aws"
+  env: "Testreactdockeraws-env"
+  bucket_name: "elasticbeanstalk-us-east-2-584750136459"
+  bucket_path: "test-react-docker-aws"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
