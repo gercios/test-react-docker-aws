@@ -1,0 +1,16 @@
+language: generic 
+
+# Everytime we are making use of docker, we need super user persmissions
+sudo: required
+services:
+# We need copy of docker ready to go
+  - docker
+
+before_install:
+# Use tag to name container for easy reference
+  - docker build -t gercios/test-react-docker-aws -f Dockerfile.dev .
+
+# Contains all of different commants that will be executed
+# Travis CI cares only about status code returned from script command
+script:
+  - docker run -e CI=true gercios/test-react-docker-aws npm run test
