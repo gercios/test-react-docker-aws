@@ -1,0 +1,24 @@
+version: '3'
+services:
+    web:
+        build:
+            context: . # Current directory, where all files come from
+            dockerfile: Dockerfile.dev
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+        ports:
+            - "3000:3000"
+        volumes:
+            - /srv/http/node_modules
+            - .:/srv/http
+    tests:
+        build:
+            context: . 
+            dockerfile: Dockerfile.dev
+        command: ["npm","run","test"]
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+        volumes:
+            - /srv/http/node_modules
+            - .:/srv/http
+        

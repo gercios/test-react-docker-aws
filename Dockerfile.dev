@@ -1,0 +1,19 @@
+FROM node:alpine
+
+WORKDIR '/srv/http'
+
+RUN npm install -g npm
+
+COPY package.json .
+RUN npm install
+
+# Why to leave this, if we are locking back for files 
+# with volume ? Because this file can be inspiration for 
+# PROD docker, or we can resign with docker-compose...
+COPY . .
+
+#RUN npm run build
+
+#CMD npm start
+
+CMD ["npm","run","start"]
