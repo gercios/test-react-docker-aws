@@ -23,6 +23,7 @@ RUN npm run build
 
 # 2nd PHASE
 FROM nginx
+EXPOSE 80
 
 # Static https://hub.docker.com/_/nginx
 COPY --from=builder /srv/http/build /usr/share/nginx/html
